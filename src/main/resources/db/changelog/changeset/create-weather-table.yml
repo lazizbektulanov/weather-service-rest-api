@@ -1,0 +1,43 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-weather
+      author: Lazizbek
+      changes:
+        - createTable:
+            tableName: weather
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: temperature
+                  type: double
+                  constraints:
+                    nullable: false
+              - column:
+                  name: wind_speed
+                  type: double
+              - column:
+                  name: wind_direction
+                  type: int
+              - column:
+                  name: last_modified_date
+                  type: timestamp
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  constraints:
+                    nullable: false
+              - column:
+                  name: city_id
+                  type: bigint
+                  constraints:
+                    foreignKeyName: fk_weather_city_id
+                    references: cities(id)
+                    nullable: false
+                    unique: true
+        - sqlFile:
+            encoding: utf-8
+            path: db/changelog/mock-data/insert-mock-weather.sql

@@ -1,0 +1,32 @@
+services:
+  app:
+    container_name: weather-service
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8082:8082"
+    environment:
+      - SERVER_PORT=8082
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/weather_service
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=root123
+      - SPRING_R2DBC_URL=r2dbc:postgresql://postgres:5432/weather_service
+      - SPRING_R2DBC_USERNAME=postgres
+      - SPRING_R2DBC_PASSWORD=root123
+      - SPRING_LIQUIBASE_URL=jdbc:postgresql://postgres:5432/weather_service
+      - SPRING_LIQUIBASE_USERNAME=postgres
+      - SPRING_LIQUIBASE_PASSWORD=root123
+      - JWT_SECRET_KEY=ThisIsSecretKeyForJSONWebTokenSignatureAlgorithmIsHS256TestForWeatherService
+      - JWT_EXPIRE_TIME=86400000
+    depends_on:
+      - postgres
+  postgres:
+    container_name: postgresql
+    image: postgres:latest
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=root123
+      - POSTGRES_DB=weather_service

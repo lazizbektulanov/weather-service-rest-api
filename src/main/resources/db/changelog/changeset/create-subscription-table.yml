@@ -1,0 +1,41 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-subscription
+      author: Lazizbek
+      changes:
+        - createTable:
+            tableName: subscriptions
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: user_id
+                  type: bigint
+                  constraints:
+                    foreignKeyName: fk_subscription_user_id
+                    references: users(id)
+                    nullable: false
+              - column:
+                  name: city_id
+                  type: bigint
+                  constraints:
+                    foreignKeyName: fk_subscription_city_id
+                    references: cities(id)
+                    nullable: false
+              - column:
+                  name: created_date
+                  type: timestamp
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  constraints:
+                    nullable: false
+          addUniqueConstraint:
+            tableName: subscriptions
+            columnNames: user_id,city_id
+        - sqlFile:
+            encoding: utf-8
+            path: db/changelog/mock-data/insert-mock-subscriptions.sql

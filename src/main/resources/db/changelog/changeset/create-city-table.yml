@@ -1,0 +1,29 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-city
+      author: Lazizbek
+      changes:
+        - createTable:
+            tableName: cities
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: enabled
+                  type: boolean
+                  constraints:
+                    nullable: false
+        - sqlFile:
+            encoding: utf-8
+            path: db/changelog/mock-data/insert-mock-cities.sql

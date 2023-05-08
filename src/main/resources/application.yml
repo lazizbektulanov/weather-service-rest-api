@@ -1,0 +1,22 @@
+server:
+  port: ${SERVER_PORT:8082}
+
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: ${SPRING_DATASOURCE_URL}
+    username: ${SPRING_DATASOURCE_USERNAME}
+    password: ${SPRING_DATASOURCE_PASSWORD}
+  r2dbc:
+    url: ${SPRING_R2DBC_URL}
+    username: ${SPRING_R2DBC_USERNAME}
+    password: ${SPRING_R2DBC_PASSWORD}
+  liquibase:
+    change-log: classpath:db/changelog/db.changelog-master.yml
+    url: ${SPRING_LIQUIBASE_URL}
+    user: ${SPRING_LIQUIBASE_USERNAME}
+    password: ${SPRING_LIQUIBASE_PASSWORD}
+
+jwt:
+  secret-key: ${JWT_SECRET_KEY}
+  expire-time: ${JWT_EXPIRE_TIME}
